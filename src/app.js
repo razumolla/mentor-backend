@@ -8,9 +8,6 @@ const app = express();
 // Define a port
 const PORT = 3000;
 
-app.use("/test", (req, res) => {
-  res.send('Hello World!')
-})
 
 
 app.use("/hello", (req, res) => {
@@ -20,6 +17,11 @@ app.use("/hello", (req, res) => {
 app.use("/razu", (req, res) => {
   res.send('Hello razu!')
 })
+
+app.use("/", (req, res) => {
+  res.send('Hello World!')
+})
+
 
 // Start the server and listen on the defined port
 app.listen(PORT, () => {
