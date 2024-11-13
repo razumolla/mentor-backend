@@ -10,16 +10,21 @@ const PORT = 3000;
 
 
 
-app.use("/hello", (req, res) => {
-  res.send('Hello !')
+
+app.get("/user", (req, res) => {
+  res.send({ firname: "Razu", lastname: "Molla" });
+})
+app.use("/user", (req, res) => {
+  res.send({ firname: "Razu" });
 })
 
-app.use("/razu", (req, res) => {
-  res.send('Hello razu!')
+app.post("/user", (req, res) => {
+  res.send('post users !')
 })
 
-app.use("/", (req, res) => {
-  res.send('Hello World!')
+
+app.use("/test", (req, res) => {
+  res.send('Hello nothing!')
 })
 
 

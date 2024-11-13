@@ -1,3 +1,5 @@
+# Episode 3
+
 - Create a repository
 - Initialize the repository
 - node_modules, package.json, package-lock.json
@@ -10,7 +12,7 @@
 - What is the use of "-g" while npm install
 - Difference between caret and tilde ( ^ vs ~ )
 
-#
+# Episode 4
 
 - initialize git
 - .gitignore
