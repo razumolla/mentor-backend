@@ -11,20 +11,13 @@ const PORT = 3000;
 
 
 
-app.get("/user", (req, res) => {
+app.get(/.*fly$/, (req, res) => {
   res.send({ firname: "Razu", lastname: "Molla" });
 })
-app.use("/user", (req, res) => {
-  res.send({ firname: "Razu" });
-})
 
-app.post("/user", (req, res) => {
+app.get("/user/:userID/:name/:password", (req, res) => {
+  console.log(req.params);
   res.send('post users !')
-})
-
-
-app.use("/test", (req, res) => {
-  res.send('Hello nothing!')
 })
 
 
