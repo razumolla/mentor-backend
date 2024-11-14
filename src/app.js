@@ -3,36 +3,23 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 
-const { adminAuth, userAuth } = require('./middlewares/auth');
+app.use("/", (err, req, res, next) => {
+  console.log("error 1");
 
-// handle Auth middleware for all requests: post, get, put, delete
-app.use("/admin", adminAuth)
-
-app.get("/admin/allData", (req, res, next) => {
-  res.send("All Data send");
-});
-app.get("/user/login", (req, res, next) => {
-  res.send("User Data send");
-});
-
-app.get("/user", userAuth, (req, res, next) => {
-  res.send("User Data send");
-});
-
-
-
-app.get("/admin/allData", (req, res, next) => {
-  // logic of checking user, if the request is authenticated, then only proceed
-  const token = req.headers.authorization;
-  if (token) {
-    // if token is valid, then proceed
-    res.send("All Data send");
-  } else {
-    // if token is invalid, then send error
-    res.status(401).send("Unauthorized");
+  if (err) {
+    // log your error
+    res.status(500).send("Internal Server Error");
   }
 });
 
+app.get("/user", (req, res) => {
+  try {
+    throw new Error("User Data");
+    res.send("User Data send");
+  } catch (err) {
+    res.status(500).send("Something Server Error");
+  }
+});
 
 
 app.listen(PORT, () => {
