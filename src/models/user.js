@@ -31,7 +31,7 @@ const userSchema = new Schema({
     required: true,
     validate(value) {
       if (!validator.isStrongPassword(value)) {
-        throw new Error("Enter a strong password: 1 lowercase letter, 1 uppercase letter, 1 number, 1 special character");
+        throw new Error("Enter a strong password: 1 lowercase , 1 uppercase letter, 1 number, 1 special character");
       }
     },
   },
@@ -40,6 +40,7 @@ const userSchema = new Schema({
     min: 12,
     max: 100,
   },
+
   gender: {
     type: String,
     validate(value) {
