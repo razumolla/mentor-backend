@@ -81,6 +81,8 @@
 - Explore validator library funcation and Use vlidator funcs for password, email, photoURL
 - NEVER TRUST req.body
 
+# Episode-09 | Encrypting Passwords
+
 - Validate data in Signup API
 - Install bcrypt package
 - Create PasswordHash using bcrypt.hash & save the user is excrupted password
