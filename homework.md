@@ -89,6 +89,8 @@
 - Create login API
 - Compare passwords and throw errors if email or password is invalid
 
+# Episode-10 | Authentication, JWT & Cookies
+
 - install cookie-parser
 - just send a dummy cookie to user
 - create GET /profile APi and check if you get the cookie back

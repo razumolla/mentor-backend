@@ -2,11 +2,13 @@ const express = require('express');
 const connectDB = require('./config/database');
 const app = express();
 const PORT = 3000;
-app.use(express.json());
 const User = require('./models/user');
 const { validateSignupData, validateLoginData } = require('./utils/validation');
 const bcrypt = require('bcrypt');
+var cookieParser = require('cookie-parser')
 
+app.use(express.json());
+app.use(cookieParser());
 
 app.post('/signup', async (req, res) => {
   try {
@@ -35,6 +37,19 @@ app.post('/signup', async (req, res) => {
   }
 });
 
+app.get("/profile", async (req, res) => {
+  const cookies = req.cookies;
+
+  // validate the token
+  const token = cookies.token;
+  if (!token) {
+    res.status(401).send("Unauthorized");
+  }
+
+  console.log(cookies);
+  res.send("Profile");
+});
+
 // login user
 app.post('/login', async (req, res) => {
   try {
@@ -51,7 +66,13 @@ app.post('/login', async (req, res) => {
     console.log('isPasswordMatched', isPasswordMatched);
 
     if (isPasswordMatched) {
-      res.send("Login")
+
+      //  create a JWT token
+
+      //  add the token to cookies and send the response back to the user
+      res.cookie("token", "adfadgfgdsfasdfasdfsdfsdfasdfsdf")
+
+      res.send("Login successfully");
     } else {
       throw new Error("Invalid Credintials");
     }
