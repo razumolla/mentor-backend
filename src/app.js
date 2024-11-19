@@ -4,8 +4,9 @@ const app = express();
 const PORT = 3000;
 app.use(express.json());
 const User = require('./models/user');
-const { validateSignupData } = require('./utils/validation');
+const { validateSignupData, validateLoginData } = require('./utils/validation');
 const bcrypt = require('bcrypt');
+
 
 app.post('/signup', async (req, res) => {
   try {
@@ -30,7 +31,33 @@ app.post('/signup', async (req, res) => {
     await user.save();
     res.send("User Created Successfully");
   } catch (err) {
-    res.status(400).send("User Creation Failed:" + err.message);
+    res.status(400).send("ERROR:" + err.message);
+  }
+});
+
+// login user
+app.post('/login', async (req, res) => {
+  try {
+    const { emailId, password } = req.body;
+    validateLoginData(req);
+
+    const user = await User.findOne({ emailId });
+    if (!user) {
+      throw new Error("Invalid Credintials");
+    }
+
+    const isPasswordMatched = await bcrypt.compare(password, user.password);
+
+    console.log('isPasswordMatched', isPasswordMatched);
+
+    if (isPasswordMatched) {
+      res.send("Login")
+    } else {
+      throw new Error("Invalid Credintials");
+    }
+
+  } catch (err) {
+    res.status(400).send("ERROR:" + err.message);
   }
 });
 
