@@ -7,6 +7,7 @@ const { validateSignupData, validateLoginData } = require('./utils/validation');
 const bcrypt = require('bcrypt');
 var cookieParser = require('cookie-parser')
 var jwt = require('jsonwebtoken');
+const { userAuth } = require('./middlewares/auth');
 
 app.use(express.json());
 app.use(cookieParser());
@@ -38,23 +39,9 @@ app.post('/signup', async (req, res) => {
   }
 });
 
-app.get("/profile", async (req, res) => {
+app.get("/profile", userAuth, async (req, res) => {
   try {
-    const cookies = req.cookies;
-    const { token } = cookies;
-    if (!token) {
-      throw new Error("Invalid token");
-    }
-
-    // validate the token
-    var decodded = jwt.verify(token, 'secreatkey@password');
-    const { _id } = decodded;
-
-    // user
-    const user = await User.findById(_id);
-    if (!user) {
-      throw new Error("User not found");
-    }
+    const user = req.user;
 
     res.send(user);
   } catch (error) {
@@ -76,7 +63,7 @@ app.post('/login', async (req, res) => {
     const isPasswordMatched = await bcrypt.compare(password, user.password);
     if (isPasswordMatched) {
       //  create a JWT token
-      var token = jwt.sign({ _id: user._id }, "secreatkey@password");
+      var token = await jwt.sign({ _id: user._id }, "secreatkey@password");
 
       //  add the token to cookies and send the response back to the user
       res.cookie("token", token)
