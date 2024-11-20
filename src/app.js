@@ -49,6 +49,18 @@ app.get("/profile", userAuth, async (req, res) => {
   }
 });
 
+app.post("/sendConnectionRequest", userAuth, async (req, res) => {
+  try {
+    const user = req.user;
+
+    console.log("sending the connection request to user");
+
+    res.send(user.firstName + " " + "Sent the Connection Request ");
+  } catch (err) {
+    res.status(400).send("ERROR:" + err.message);
+  }
+});
+
 // login user
 app.post('/login', async (req, res) => {
   try {
@@ -63,10 +75,18 @@ app.post('/login', async (req, res) => {
     const isPasswordMatched = await bcrypt.compare(password, user.password);
     if (isPasswordMatched) {
       //  create a JWT token
-      var token = await jwt.sign({ _id: user._id }, "secreatkey@password");
+      var token = await jwt.sign({ _id: user._id }, "secreatkey@password",
+        { expiresIn: '7d' }
+      );
 
       //  add the token to cookies and send the response back to the user
-      res.cookie("token", token)
+      res.cookie("token",
+        token,
+        {
+          expires: new Date(Date.now() + 8 * 3600000), // cookie will be removed after 8 hours
+          httpOnly: true
+        }
+      );
       res.send("Login successfully");
     } else {
       throw new Error("Invalid Credintials");
