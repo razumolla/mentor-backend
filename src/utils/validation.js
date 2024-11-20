@@ -14,7 +14,7 @@ const validateSignupData = (req) => {
 }
 
 const validateLoginData = (req) => {
-  const { emailId, password } = req.body;
+  const { emailId } = req.body;
   if (!validator.isEmail(emailId)) {
     throw new Error("Invalid emailId");
   }
