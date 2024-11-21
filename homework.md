@@ -103,6 +103,8 @@
 - Create userSchema method to getJWT()
 - Create UserSchema method to comparepassword(passwordInputByUser)
 
+# Episode-11 | Diving into the APIs and express Router
+
 - Explore tinder APIs
 - Create a list all API you can think of in Dev Tinder
 - Group multiple routes under repective routers
