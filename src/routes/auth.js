@@ -65,4 +65,16 @@ authRouter.post('/login', async (req, res) => {
   }
 });
 
+// @desc      Logout user 
+// @route     DELETE /api/v1/auth/logout
+// @access    Private
+authRouter.post('/logout', async (req, res) => {
+  // res.clearCookie('token');
+  res.cookie('token', null, {
+    expires: new Date(Date.now())
+  });
+
+  res.send('Logged out successfully');
+});
+
 module.exports = authRouter;
