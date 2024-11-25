@@ -21,6 +21,10 @@ requestRouter.post("/request/send/:status/:toUserId", userAuth, async (req, res)
       throw new Error("User not found");
     }
 
+    // if (fromUserId === toUserId) {
+    //   throw new Error("You cannot send a connection request to yourself");
+    // }
+
     // if there is an existing connection request, then throw an error
     const existingConnectionRequest = await ConnectionRequest.findOne({
       $or: [
@@ -41,7 +45,7 @@ requestRouter.post("/request/send/:status/:toUserId", userAuth, async (req, res)
     const data = await connectionRequest.save();
 
     res.status(200).json({
-      message: "Connection Request Sent Successfully",
+      message: `${req.user.firstName} is ${status} to ${toUser.firstName}`,
       data
     });
   } catch (err) {
