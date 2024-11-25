@@ -19,7 +19,7 @@ const userSchema = new Schema({
     lowercase: true,
     required: true,
     index: true,
-    unique: true,
+    unique: true, // specifying `index: true` is optional if you do `unique: true`
     trim: true,
     validate(value) {
       if (!validator.isEmail(value)) {
@@ -48,11 +48,11 @@ const userSchema = new Schema({
       values: ["Male", "Female", "Other"],
       message: `{VALUE} is incorrect Gender` // custom error message
     },
-    validate(value) {
-      if (!["Male", "Female", "Other"].includes(value)) {
-        throw new Error("Invalid Gender" + value);
-      }
-    },
+    // validate(value) {
+    //   if (!["Male", "Female", "Other"].includes(value)) {
+    //     throw new Error("Invalid Gender" + value);
+    //   }
+    // },
   },
   photoUrl: {
     type: String,
@@ -72,6 +72,9 @@ const userSchema = new Schema({
     default: ["Javascript", "NodeJS", "MongoDB"],
   },
 }, { timestamps: true });
+
+// compound index for searching with firstName and lastName
+// userSchema.index({ firstName: 1, lastName: 1 });
 
 // JWT token
 userSchema.methods.getJWT = async function () {

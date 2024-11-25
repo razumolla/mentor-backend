@@ -117,6 +117,8 @@
 - Create PATCH /profile/password API => forgot password API
 - Make you validate all data in every POST, PATCH apis
 
+# Episode-12 | Logical DB Query & Compound Indexes
+
 - Create Connnection Request Schema
 - Send Connection Request API
 - Proper validation of Data
