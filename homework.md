@@ -131,6 +131,8 @@
 - Read this arcticle about compond indexes - https://www.mongodb.com/docs/manual/core/indexes/index-types/index-compound/
 - ALWAYS THINK ABOUT CORNER CASES
 
+# Episode-13 | ref, Populate & Thought process of writing APIs
+
 - Write code with proper validations for POST /request/review/:status/:requestId
 - Thought process - POST vs GET
 - Read about ref and populate https://mongoosejs.com/docs/populate.html

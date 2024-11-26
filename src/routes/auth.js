@@ -4,6 +4,29 @@ const authRouter = express.Router();
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const { validateSignupData, validateLoginData } = require('../utils/validation');
+const { userAuth } = require('../middlewares/auth');
+
+// get all users 
+authRouter.get("/users", userAuth, async (req, res) => {
+  try {
+    const users = await User.find({});
+
+    res.send(users);
+  } catch (error) {
+    res.status(400).send("ERROR:" + error.message);
+  }
+});
+
+//get Current User
+authRouter.get("/me", userAuth, async (req, res) => {
+  try {
+    const user = req.user;
+
+    res.send(user);
+  } catch (error) {
+    res.status(400).send("ERROR:" + error.message);
+  }
+});
 
 // POST /signup
 authRouter.post('/signup', async (req, res) => {
