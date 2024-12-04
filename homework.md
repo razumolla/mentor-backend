@@ -139,6 +139,8 @@
 - Create GET /user/requests/received with all the checks
 - Create GET /user/connections
 
+# Episode-14 |Building Feed API & Pagination
+
 - Logic for GET /feed API
 - Explore the $nin , $and, $ne and other query operatorators
 - Pagination
