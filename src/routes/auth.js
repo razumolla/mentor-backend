@@ -79,7 +79,7 @@ authRouter.post('/login', async (req, res) => {
           httpOnly: true
         }
       );
-      res.send("Login successfully");
+      res.send(user);
     } else {
       throw new Error("Invalid Credintials");
     }
