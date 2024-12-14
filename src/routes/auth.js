@@ -48,8 +48,14 @@ authRouter.post('/signup', async (req, res) => {
       password: passwordHash
     });
 
-    await user.save();
-    res.send({ Message: "User Created Successfully", user: user });
+    const savedUser = await user.save();
+
+    var token = await user.getJWT();
+    res.cookie("token", token, {
+      expires: new Date(Date.now() + 8 * 3600000)
+    });
+
+    res.send({ Message: "User Created Successfully", data: savedUser });
   } catch (err) {
     res.status(400).send("ERROR:" + err.message);
   }
@@ -76,7 +82,7 @@ authRouter.post('/login', async (req, res) => {
         token,
         {
           expires: new Date(Date.now() + 8 * 3600000), // cookie will be removed after 8 hours
-          httpOnly: true
+          // httpOnly: true
         }
       );
       res.send(user);
