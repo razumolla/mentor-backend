@@ -65,7 +65,7 @@ const userSchema = new Schema({
   },
   about: {
     type: String,
-    default: "I am a developer",
+    default: "I am a Good Person",
   },
   skills: {
     type: Array,
@@ -80,8 +80,8 @@ const userSchema = new Schema({
 userSchema.methods.getJWT = async function () {
   const user = this; // this refers to the user document
 
-  const token = await jwt.sign({ _id: user._id }, "secreatkey@password",
-    { expiresIn: '7d' }
+  const token = await jwt.sign({ _id: user._id }, process.env.JWT_SECRET,
+    { expiresIn: process.env.EXPIRES_IN }
   );
   return token;
 };
