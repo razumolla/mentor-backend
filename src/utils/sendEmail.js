@@ -30,7 +30,8 @@ const createSendEmailCommand = (toAddress, fromAddress, subject, body) => {
   });
 };
 
-const run = async (subject, body, toEmailId) => {
+// In production , you can also send dynamic email
+const run = async (subject, body) => {
   const sendEmailCommand = createSendEmailCommand(
     "razumolla75@gmail.com",
     "razu.hkit@gmail.com",

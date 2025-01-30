@@ -7,6 +7,8 @@ const cors = require('cors')
 
 const PORT = process.env.PORT || 5001;
 
+require('./utils/cronjob')
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
