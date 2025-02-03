@@ -24,12 +24,14 @@ const connectionRequestRouter = require('./routes/request');
 const userRouter = require('./routes/user');
 const paymentRouter = require('./routes/payment');
 const initializeSocket = require('./utils/socket');
+const chatRouter = require('./routes/chat');
 
 app.use("/", authRouter)
 app.use("/", profileRouter)
 app.use("/", connectionRequestRouter)
 app.use("/", userRouter)
 app.use("/", paymentRouter)
+app.use("/", chatRouter)
 
 // socket io configureation 
 const server = http.createServer(app);
